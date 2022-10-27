@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <form onsubmit="checkPin(); return false">
+        <h1>ATM MACHINE</h1>
+
+        Enter your Pin:
+        <input type="number" id="userInputPin" required />
+        <button>Confirm</button>
+    </form>
+
+    <h4 id="errorMessage"></h4>
+    <div id="homeScreen"></div>
+    <h4 id="message"></h4>
+
+    <ul style="display: none">
+        <li id="item1"></li>
+        <li id="item2"></li>
+        <li id="item3"></li>
+    </ul>
+
+    <script>
+        let moneyBox = 22000; //ATM MACHINE MONEY BOX
+        let cardDailyLimit = 20000;
+        let accountBalance = 50000;
+
+        function checkPin() {
+            console.log("I am checking pin");
+
+            let userInputPin = document.querySelector("#userInputPin").value;
+
+            if (userInputPin.length > 4) {
+                document.querySelector("#errorMessage").innerHTML =
+                    "You Must Enter 4 Digit Pin Number";
+                return;
+            }
+
+            if (userInputPin.length < 4) {
+                document.querySelector("#errorMessage").innerHTML =
+                    "You Must Enter 4 Digit Pin Number";
+                return;
+            }
+
+            if (userInputPin === "5112") {
+                document.querySelector("#errorMessage").innerHTML =
+                    "Correct Pin Number 👍";
+                document.querySelector("#homeScreen").innerHTML = `
+                        <form onsubmit="withdraw(); return false">
+                             <h3>WITHDRAW</h3>
+                             Enter your Amount to withdraw:
+                             <input type="number" id="userInputAmount" required />
+                             <button>withdraw</button>
+                             <h4><span style="color: Blue">Requirements:</span> Enter Your amount must be 5 , 10 ...</h4>
+                        </form>`;
+                return;
+            }
+
+            if (userInputPin !== "5112") {
+                document.querySelector("#errorMessage").innerHTML =
+                    "inCorrect Pin Number ❌";
+                return;
+            }
+        }
+
+        function withdraw() {
+            let amount = document.querySelector("#userInputAmount").value;
+
+            document.querySelector("#message").innerHTML =
+                "Successfully Withdraw 💸";
+
+            let liItem = (document.querySelector("ul").style.display = "block");
+
+            let moneyBoxCondition = moneyBox - Number(amount);
+
+            // money box
+            if (moneyBox > amount) {
+                let item1 = (document.querySelector("#item1").innerHTML =
+                    "Remain Money Box Amount is: " + (moneyBox - Number(amount)));
+            } else {
+                let item1 = (document.querySelector("#item1").innerHTML =
+                    "Money Box Limit is Finished");
+            }
+
+            // card daily limit
+            if (cardDailyLimit > amount) {
+                let item2 = (document.querySelector("#item2").innerHTML =
+                    "Remain Card Daily Limit is: " + (cardDailyLimit - Number(amount)));
+            } else {
+                let item2 = (document.querySelector("#item2").innerHTML =
+                    "Card Daily Limit is over");
+            }
+
+            // account balance
+            if (accountBalance > amount) {
+                let item3 = (document.querySelector("#item3").innerHTML =
+                    "Remain Account Balance is: " + (accountBalance - Number(amount)));
+            } else {
+                let item3 = (document.querySelector("#item3").innerHTML =
+                    "Account Balance is not enough ");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
