@@ -31,7 +31,7 @@ function checkPin() {
             "Correct Pin Number 👍";
         document.querySelector("#homeScreen").innerHTML = `
         
- 
+        <form onsubmit ="withdraw(); return false">
         Enter your amount to withdraw:
         <input type="number" id="userInputAmount" required>
         <button onclick="withdraw()">withdraw</button>
