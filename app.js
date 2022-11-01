@@ -55,7 +55,7 @@ function withdraw() {
     console.log(withdrawAmount);
 
     if (withdrawAmount > moneyBox) {
-        document.querySelector("#message").innerHTML = `This machine don't have enough money, please try smaller amount`
+        document.querySelector("#message").innerHTML= `This machine don't have enough money, please try smaller amount`
         return;
     }
     else if (withdrawAmount > cardDailyLimit) {
